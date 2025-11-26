@@ -3,14 +3,14 @@ import { pgTable, serial, varchar, integer, timestamp, foreignKey } from "drizzl
 // Kategorien-Tabelle
 export const categories = pgTable("categories", {
   id: serial("id").primaryKey(),
-  name: varchar("name", { length: 64 }).notNull(),
+  name: varchar("name", { length: 128 }).notNull(),
 });
 
 // Software-Tabelle
 export const software = pgTable("software", {
   id: serial("id").primaryKey(),
   name: varchar("name", { length: 128 }).notNull(),
-  os: varchar("os", { length: 32 }), // z.B. "Windows", "macOS", etc.
+  os: varchar("os", { length: 128 }), // z.B. "Windows", "macOS", etc.
   cpu: varchar("cpu", { length: 128 }),
   ram: integer("ram"), // in MB
   storage: integer("storage"), // in GB
@@ -30,7 +30,7 @@ export const devices = pgTable("devices", {
   cpu: varchar("cpu", { length: 128 }),
   ram: integer("ram"), // in MB
   storage: integer("storage"), // in MB
-  os: varchar("os", { length: 32 }),
+  os: varchar("os", { length: 128 }),
   price: integer("price"), // in EUR-Cent
 });
 
@@ -38,7 +38,7 @@ export const devices = pgTable("devices", {
 // Aggregiert bedeutet in diesem Fall das das Backend die höchsten Anforderungen errechnet und dann hier einen Eintrag erstellt und diesen dann ans FE zurückgibt
 export const aggregatedRequirements = pgTable("aggregated_requirements", {
   id: serial("id").primaryKey(),
-  os: varchar("os", { length: 32 }).notNull(),
+  os: varchar("os", { length: 128 }).notNull(),
   cpu: varchar("cpu", { length: 128 }).notNull(),
   ram: integer("ram").notNull(),
   storage: integer("storage").notNull(),

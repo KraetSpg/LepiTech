@@ -15,6 +15,20 @@
       "when": 1764058184809,
       "tag": "0001_needy_franklin_storm",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1764144869797,
+      "tag": "0002_curved_violations",
+      "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "7",
+      "when": 1764144978668,
+      "tag": "0003_clammy_joystick",
+      "breakpoints": true
     }
   ]
 }

@@ -1,0 +1,1 @@
+ALTER TABLE "devices" ALTER COLUMN "os" SET DATA TYPE varchar(64);
