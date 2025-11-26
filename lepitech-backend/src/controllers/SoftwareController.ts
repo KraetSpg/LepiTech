@@ -1,8 +1,54 @@
 import { SelectSoftware, software } from "../db/schema";
 import { db } from "../db";
+import { eq, inArray } from "drizzle-orm";
 
 export class SoftwareController {
     public async getSoftware(): Promise<SelectSoftware[]> {
         return await db.select().from(software);
+    }
+
+    // TODO: 
+    // CPU und OS ordentliche aggregiermethode
+    public async getAggregatedRequirements(softwareIds: number[]) {
+        const selectedSoftwares: SelectSoftware[] = await db
+            .select()
+            .from(software)
+            .where(inArray(software.id, softwareIds));
+
+        if (selectedSoftwares.length === 0) {
+            return null;
+        }
+
+        // Aggregation der Werte
+        let maxRam = 0;
+        let maxStorage = 0;
+        let cpu = "";
+        const osSet = new Set<string>();
+
+        selectedSoftwares.forEach((sw) => {
+            if (sw.ram && sw.ram > maxRam) {
+                maxRam = sw.ram;
+            }
+            if (sw.storage) {
+                maxStorage += sw.storage;
+            }
+            // CPU lexikographisch maximal (vereinfachte Annahme)
+            if (sw.cpu && sw.cpu > cpu) {
+                cpu = sw.cpu;
+            }
+            if (sw.os) {
+                osSet.add(sw.os);
+            }
+        });
+
+        // Wenn mehrere OS vorhanden, kannst du eine Strategie wählen, hier als Array
+        const osArray = Array.from(osSet);
+
+        return {
+            cpu,
+            ram: maxRam,
+            storage: maxStorage,
+            os: osArray.join(", "), // alle OS als String getrennt
+        };
     }
 }
