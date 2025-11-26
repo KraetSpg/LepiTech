@@ -55,7 +55,7 @@ export const generationLogs = pgTable("generation_logs", {
 });
 
 
-export type SelectSofware = typeof software.$inferSelect;
+export type SelectSoftware = typeof software.$inferSelect;
 export type SelectDevices = typeof devices.$inferSelect;
 export type SelectAggregatedRequirements = typeof aggregatedRequirements.$inferSelect;
 export type SelectCategories = typeof categories.$inferSelect;
