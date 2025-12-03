@@ -1,4 +1,4 @@
-import { SelectSoftware, software } from "../db/schema";
+import { aggregatedRequirements, SelectSoftware, software } from "../db/schema";
 import { db } from "../db";
 import { eq, inArray } from "drizzle-orm";
 
@@ -44,11 +44,15 @@ export class SoftwareController {
         // Wenn mehrere OS vorhanden, kannst du eine Strategie wählen, hier als Array
         const osArray = Array.from(osSet);
 
-        return {
+        const aggregatedRequirementsObj = {
             cpu,
             ram: maxRam,
             storage: maxStorage,
             os: osArray.join(", "), // alle OS als String getrennt
-        };
+        }
+
+        const [aggregatedRequirement] = await db.insert(aggregatedRequirements).values(aggregatedRequirementsObj).returning()
+
+        return aggregatedRequirement;
     }
 }

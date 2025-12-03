@@ -27,10 +27,10 @@ export const devices = pgTable("devices", {
   id: serial("id").primaryKey(),
   name: varchar("name", { length: 128 }).notNull(),
   manufacturer: varchar("manufacturer", { length: 64 }),
-  cpu: varchar("cpu", { length: 128 }),
-  ram: integer("ram"), // in MB
-  storage: integer("storage"), // in MB
-  os: varchar("os", { length: 128 }),
+  cpu: varchar("cpu", { length: 128 }).notNull(),
+  ram: integer("ram").notNull(), // in MB
+  storage: integer("storage").notNull(), // in MB
+  os: varchar("os", { length: 128 }).notNull(),
   price: integer("price"), // in EUR-Cent
 });
 
@@ -59,5 +59,4 @@ export type SelectSoftware = typeof software.$inferSelect;
 export type SelectDevices = typeof devices.$inferSelect;
 export type SelectAggregatedRequirements = typeof aggregatedRequirements.$inferSelect;
 export type SelectCategories = typeof categories.$inferSelect;
-
 export type InsertSoftware = typeof software.$inferInsert;
