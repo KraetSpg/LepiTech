@@ -1,19 +1,18 @@
-import { aggregatedRequirements, SelectSoftware, software } from "../db/schema";
+import { aggregatedRequirementsTable, SelectSoftware, softwareTable } from "../db/schema";
 import { db } from "../db";
 import { eq, inArray } from "drizzle-orm";
 
 export class SoftwareController {
     public async getSoftware(): Promise<SelectSoftware[]> {
-        return await db.select().from(software);
+        return await db.select().from(softwareTable);
     }
 
     // TODO: 
-    // CPU und OS ordentliche aggregiermethode
     public async getAggregatedRequirements(softwareIds: number[]) {
         const selectedSoftwares: SelectSoftware[] = await db
             .select()
-            .from(software)
-            .where(inArray(software.id, softwareIds));
+            .from(softwareTable)
+            .where(inArray(softwareTable.id, softwareIds));
 
         if (selectedSoftwares.length === 0) {
             return null;
@@ -22,7 +21,8 @@ export class SoftwareController {
         // Aggregation der Werte
         let maxRam = 0;
         let maxStorage = 0;
-        let cpu = "";
+        let cpu_cores = 0;
+        let cpu_frequency = 0;
         const osSet = new Set<string>();
 
         selectedSoftwares.forEach((sw) => {
@@ -32,9 +32,11 @@ export class SoftwareController {
             if (sw.storage) {
                 maxStorage += sw.storage;
             }
-            // CPU lexikographisch maximal (vereinfachte Annahme)
-            if (sw.cpu && sw.cpu > cpu) {
-                cpu = sw.cpu;
+            if (sw.cpu_cores && sw.cpu_cores > cpu_cores) {
+                cpu_cores = sw.cpu_cores;
+            }
+            if (sw.cpu_frequency && sw.cpu_frequency > cpu_frequency) {
+                cpu_frequency = sw.cpu_frequency;
             }
             if (sw.os) {
                 osSet.add(sw.os);
@@ -45,13 +47,14 @@ export class SoftwareController {
         const osArray = Array.from(osSet);
 
         const aggregatedRequirementsObj = {
-            cpu,
+            cpu_cores,
+            cpu_frequency,
             ram: maxRam,
             storage: maxStorage,
             os: osArray.join(", "), // alle OS als String getrennt
         }
 
-        const [aggregatedRequirement] = await db.insert(aggregatedRequirements).values(aggregatedRequirementsObj).returning()
+        const [aggregatedRequirement] = await db.insert(aggregatedRequirementsTable).values(aggregatedRequirementsObj).returning()
 
         return aggregatedRequirement;
     }
