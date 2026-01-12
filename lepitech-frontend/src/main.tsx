@@ -6,6 +6,7 @@ import { Navbar03 } from './components/ui/shadcn-io/navbar-03/index'
 import { Hero } from "./components/ui/hero"
 import { SearchWithCards } from "./components/ui/hero"
 import Example from "./components/examples/accordion/standard/accordion-standard-5"
+import { SelectSoftwareComponent } from './components/ui/SelectSoftwareComponent'
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
@@ -15,7 +16,7 @@ createRoot(document.getElementById('root')!).render(
       <div className="mx-auto w-full max-w-md md:max-w-xl lg:max-w-2xl px-4">
         <Example />
       </div>
-      
+      <SelectSoftwareComponent></SelectSoftwareComponent>
       <SearchWithCards />
     </div>
   </StrictMode>,
