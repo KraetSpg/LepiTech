@@ -1,5 +1,5 @@
 import * as React from "react"
-import { SoftwareItemList } from "./SoftwareItem"
+import { SoftwareItemList } from "./SoftwareItemList"
 
 const SelectSoftwareComponent = React.forwardRef<
   HTMLDivElement,
