@@ -36,7 +36,7 @@ export function SoftwareItemList() {
   return (
     <div className="grid gap-4">
       {items.map((sw) => (
-        <div key={sw.id} className="p-4 border rounded-lg shadow-sm">
+        <div key={sw.id} className="p-4 rounded-lg shadow-sm">
           <h3 className="font-bold">{sw.name}</h3>
           <p className="text-sm text-muted-foreground">OS: {sw.os}</p>
         </div>
