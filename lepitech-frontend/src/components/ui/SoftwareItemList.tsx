@@ -34,7 +34,7 @@ export function SoftwareItemList() {
   if (loading) return <div>Loading software options...</div>;
 
   return (
-    <div className="grid gap-4">
+    <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
       {items.map((sw) => (
         <div key={sw.id} className="p-4 border rounded-lg shadow-sm">
           <h3 className="font-bold">{sw.name}</h3>

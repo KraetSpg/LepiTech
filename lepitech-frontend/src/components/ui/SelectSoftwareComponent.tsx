@@ -5,7 +5,7 @@ const SelectSoftwareComponent = React.forwardRef<
   HTMLDivElement,
   React.HTMLAttributes<HTMLDivElement>
 >(({ className, ...props }, ref) => (
-  <div className="flex flex-wrap gap-4 justify-start items-center border border-solid border-black">
+  <div className="flex flex-wrap gap-4 justify-start items-center">
     <SoftwareItemList></SoftwareItemList>
   </div>
 ))

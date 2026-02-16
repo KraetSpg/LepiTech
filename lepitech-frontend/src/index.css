@@ -4,6 +4,39 @@
 
 @layer base {
   :root {
+    --background: 0 0% 100%;         /* Reinweiß */
+    --foreground: 0 0% 9%;           /* Fast Schwarz für Text */
+    
+    --card: 0 0% 98%;                /* Ganz helles Grau für Karten */
+    --card-foreground: 0 0% 9%;
+    
+    --popover: 0 0% 100%;
+    --popover-foreground: 0 0% 9%;
+    
+    /* Deine Markenfarben bleiben fast gleich, evtl. etwas dunkler für Kontrast */
+    --primary: 162 77% 40%;          /* #15a875 (etwas satter für bessere Lesbarkeit auf Weiß) */
+    --primary-foreground: 0 0% 100%; /* Weißer Text auf grünem Button */
+    
+    --secondary: 198 67% 45%;        /* Dein Blau: #2596be */
+    --secondary-foreground: 0 0% 100%;
+    
+    --muted: 0 0% 92%;               /* Helles Grau für Nebensächliches */
+    --muted-foreground: 0 0% 40%;    /* Mittleres Grau für Text */
+    
+    --accent: 165 50% 94%;           /* Sehr helles Türkis für Hover-Effekte */
+    --accent-foreground: 165 50% 30%;
+    
+    --destructive: 0 84.2% 60.2%;    /* Standard Rot */
+    --destructive-foreground: 0 0% 98%;
+    
+    --border: 0 0% 89.8%;            /* Hellgraue Linien */
+    --input: 0 0% 89.8%;
+    --ring: 162 77% 44%;             /* Dein Primär-Grün für Fokus-Ringe */
+    
+    --radius: 0.5rem;
+}
+  .dark
+  {
     --background: 0 0% 15%;       /* #1a1a1a */
     --foreground: 0 0% 98%;
     --card: 0 0% 14%;
