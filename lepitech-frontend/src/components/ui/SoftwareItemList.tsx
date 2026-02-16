@@ -1,6 +1,6 @@
-import * as React from "react"
+import * as React from "react";
 import { Card, CardHeader } from "./card";
-import { useState, useEffect } from 'react';
+import { useState, useEffect } from "react";
 
 interface Software {
   id: number;
@@ -11,15 +11,19 @@ interface Software {
   storage: number | null;
 }
 
-export function SoftwareItemList() {
+type Props = {
+  onDragStartItem?: (sw: Software) => void;
+};
+
+export function SoftwareItemList({ onDragStartItem }: Props) {
   const [items, setItems] = useState<Software[]>([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch('http://localhost:3001/software');
-        if (!response.ok) throw new Error('Network response was not ok');
+        const response = await fetch("http://localhost:3001/software");
+        if (!response.ok) throw new Error("Network response was not ok");
         const data = await response.json();
         setItems(data);
       } catch (error) {
@@ -34,9 +38,17 @@ export function SoftwareItemList() {
   if (loading) return <div>Loading software options...</div>;
 
   return (
-    <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
+    <div className="grid grid-cols-1 md:grid-cols-4 gap-4 bg-black/10">
       {items.map((sw) => (
-        <div key={sw.id} className="p-4 rounded-lg shadow-sm">
+        <div
+          key={sw.id}
+          className="p-4 rounded-lg shadow-sm border border-gray-600 bg-[#262626] cursor-grab"
+          draggable
+          onDragStart={(e) => {
+            e.dataTransfer.setData("application/json", JSON.stringify(sw));
+            onDragStartItem?.(sw);
+          }}
+        >
           <h3 className="font-bold">{sw.name}</h3>
           <p className="text-sm text-muted-foreground">OS: {sw.os}</p>
         </div>

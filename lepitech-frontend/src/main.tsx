@@ -18,7 +18,7 @@ createRoot(document.getElementById('root')!).render(
         <Navbar03 />
         <Hero />
         
-        <div className="mx-auto w-full max-w-2xl md:max-w-4xl lg:max-w-6xl px-4">
+        <div className="mx-auto w-full max-w-2xl md:max-w-4xl lg:max-w-[100rem] px-4">
           <Example />
           <SelectSoftwareComponent />
         </div>
