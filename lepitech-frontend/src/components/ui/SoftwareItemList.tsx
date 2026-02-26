@@ -42,7 +42,7 @@ export function SoftwareItemList({ onDragStartItem }: Props) {
       {items.map((sw) => (
         <div
           key={sw.id}
-          className="p-4 rounded-lg shadow-sm border border-gray-600 bg-[#262626] cursor-grab"
+          className="p-4 dark:bg-[#262626] bg-slate-50 rounded-lg shadow-sm border border-gray-600 cursor-grab"
           draggable
           onDragStart={(e) => {
             e.dataTransfer.setData("application/json", JSON.stringify(sw));

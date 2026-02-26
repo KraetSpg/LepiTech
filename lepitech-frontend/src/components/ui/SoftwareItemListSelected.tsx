@@ -30,7 +30,7 @@ export function SoftwareItemListSelected({ items, onDropItem }: Props) {
       {items.map((sw) => (
         <div
           key={sw.id}
-          className="p-4 rounded-lg shadow-sm border border-gray-600 bg-[#262626] max-h-24"
+          className="p-4 dark:bg-[#262626] bg-slate-50 rounded-lg shadow-sm border border-gray-600  max-h-24"
         >
           <h3 className="font-bold">{sw.name}</h3>
           <p className="text-sm text-muted-foreground">OS: {sw.os}</p>
