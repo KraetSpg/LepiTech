@@ -23,6 +23,10 @@ const SelectSoftwareComponent = React.forwardRef<
     )
   }
 
+  const handleRemoveFromSelected = (id: number) => {
+    setSelected((prev) => prev.filter((item) => item.id !== id))
+  }
+
   return (
     <div className="grid grid-cols-[1fr_auto_1fr] items-center gap-4 border border-solid rounded-sm my-12">
       <SoftwareItemList />
@@ -33,6 +37,7 @@ const SelectSoftwareComponent = React.forwardRef<
       <SoftwareItemListSelected
         items={selected}
         onDropItem={handleDropToSelected}
+        onRemoveItem={handleRemoveFromSelected}
       />
     </div>
   )
