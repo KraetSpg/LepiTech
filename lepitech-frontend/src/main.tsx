@@ -2,11 +2,10 @@ import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
 import './index.css'
 import { ThemeProvider } from "@/components/ui/theme-provider" 
-
+import { SelectLaptop } from './components/ui/SelectLaptop'
 import { Navbar03 } from './components/ui/shadcn-io/navbar-03/index'
 import { Hero } from "./components/ui/hero"
 import { SearchWithCards } from "./components/ui/hero"
-import Example from "./components/examples/accordion/standard/accordion-standard-5"
 import { SelectSoftwareComponent } from './components/ui/SelectSoftwareComponent'
 
 createRoot(document.getElementById('root')!).render(
@@ -19,11 +18,11 @@ createRoot(document.getElementById('root')!).render(
         <Hero />
         
         <div className="mx-auto w-full max-w-2xl md:max-w-4xl lg:max-w-[100rem] px-4">
-          <Example />
           <SelectSoftwareComponent />
         </div>
         
         <SearchWithCards />
+        <SelectLaptop />
       </div>
 
     </ThemeProvider>
