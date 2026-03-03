@@ -31,16 +31,39 @@ app.get("/software", (request: Request, response: Response) => {
 });
 
 // Send Requirements and Fitting Devices
-app.post("/software", (request: Request, response: Response) => {
-  console.log(request.body);
-  softwareController.getAggregatedRequirements(request.body.softwareids).then((requirements) => {
-    if (!requirements) {
-      response.status(500).send("Couldn't get aggregated Results");
+app.post("/software", async (request: Request, response: Response) => {
+  try {
+    const { softwareids } = request.body as { softwareids?: unknown };
+
+    if (!Array.isArray(softwareids) || softwareids.length === 0) {
+      response.status(400).send({ error: "softwareids must be a non-empty array" });
+      return;
     }
-      devicesController.getDevicesForAggregatedSoftware(requirements!.id).then((fittingDevices) => {
-        response.status(200).send({requirements: requirements, devices: fittingDevices});
-      })
-  })
+
+    const invalidIds = softwareids.some((id) => !Number.isInteger(id) || id <= 0);
+    if (invalidIds) {
+      response.status(400).send({ error: "softwareids must contain only positive integer IDs" });
+      return;
+    }
+
+    const requirements = await softwareController.getAggregatedRequirements(softwareids as number[]);
+
+    if (!requirements) {
+      response.status(404).send({ error: "No aggregated requirements found for provided softwareids" });
+      return;
+    }
+
+    if (requirements.id == null) {
+      response.status(500).send({ error: "Aggregated requirements id is missing" });
+      return;
+    }
+
+    const fittingDevices = await devicesController.getDevicesForAggregatedSoftware(requirements.id);
+    response.status(200).send({ requirements, devices: fittingDevices });
+  } catch (error) {
+    console.error("POST /software failed:", error);
+    response.status(500).send({ error: "Internal server error while processing software selection" });
+  }
 }) 
 
 app.listen(PORT, () => { 

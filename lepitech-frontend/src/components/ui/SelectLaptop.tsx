@@ -1,29 +1,21 @@
 import * as React from "react"
-import { useState, useEffect } from "react"
 import { Card, CardHeader, CardTitle, CardContent, CardFooter } from "./card"
 import { Button } from "./button"
 
-interface Device {
+export interface Device {
   id: number;
   name: string;
-  manufacturer: string;
+  manufacturer: string | null;
   ram: number;
   storage: number;
-  price: number;
+  price: number | null;
 }
 
-export function SelectLaptop() {
-  const [devices, setDevices] = useState<Device[]>([]);
+type SelectLaptopProps = {
+  devices: Device[];
+};
 
-  useEffect(() => {
-    const testData: Device[] = [
-      { id: 1, name: "LepiBook Pro 14", manufacturer: "LepiTech", ram: 16384, storage: 512000, price: 149900 },
-      { id: 2, name: "LepiBook Air", manufacturer: "LepiTech", ram: 8192, storage: 256000, price: 99900 },
-      { id: 3, name: "LepiWorkstation", manufacturer: "LepiTech", ram: 32768, storage: 1024000, price: 249900 },
-      { id: 4, name: "LepiSlim 13", manufacturer: "LepiTech", ram: 8192, storage: 128000, price: 79900 },
-    ];
-    setDevices(testData);
-  }, []);
+export function SelectLaptop({ devices }: SelectLaptopProps) {
 
   return (
     // Geändert: grid-cols-2 (mobil) bis grid-cols-4 (desktop) für schmalere Karten
@@ -43,7 +35,7 @@ export function SelectLaptop() {
 
           <CardHeader className="p-3 pb-0"> {/* Kleineres Padding */}
             <div className="text-[10px] font-medium text-emerald-500 uppercase tracking-tighter">
-              {device.manufacturer}
+              {device.manufacturer ?? "Unbekannt"}
             </div>
             <CardTitle className="text-sm font-bold truncate">{device.name}</CardTitle>
           </CardHeader>
@@ -63,7 +55,7 @@ export function SelectLaptop() {
 
           <CardFooter className="p-3 pt-0 flex flex-col gap-2">
             <div className="text-lg font-bold text-center text-foreground border-t pt-2">
-              {(device.price / 100).toLocaleString('de-DE', { style: 'currency', currency: 'EUR' })}
+              {((device.price ?? 0) / 100).toLocaleString('de-DE', { style: 'currency', currency: 'EUR' })}
             </div>
             <Button className="w-full h-8 text-xs bg-emerald-500 hover:bg-emerald-600 text-white font-bold">
               Kaufen

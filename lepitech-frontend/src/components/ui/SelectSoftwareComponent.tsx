@@ -2,6 +2,7 @@ import * as React from "react"
 import { SoftwareItemList } from "./SoftwareItemList"
 import { SoftwareItemListSelected } from "./SoftwareItemListSelected"
 import { Button } from "./button"
+import type { Device } from "./SelectLaptop"
 
 export interface Software {
   id: number
@@ -12,24 +13,42 @@ export interface Software {
   storage: number | null
 }
 
+interface SoftwareResponse {
+  devices: Device[]
+}
+
+type SelectSoftwareProps = React.HTMLAttributes<HTMLDivElement> & {
+  onDevicesFound?: (devices: Device[]) => void
+}
+
 const SelectSoftwareComponent = React.forwardRef<
   HTMLDivElement,
-  React.HTMLAttributes<HTMLDivElement>
->(({ className, ...props }, ref) => {
+  SelectSoftwareProps
+>(({ className, onDevicesFound, ...props }, ref) => {
   const [selected, setSelected] = React.useState<Software[]>([])
 
-  const sendItems = () => {
+  const sendItems = async () => {
     const ids = selected.map((sw) => sw.id)
 
-    fetch("http://localhost:3001/software", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ softwareids: ids }),
-    }).then((results) => {
-      console.log(results)
-    })
+    try {
+      const response = await fetch("http://localhost:3001/software", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ softwareids: ids }),
+      })
+
+      if (!response.ok) {
+        throw new Error("Failed to fetch matching devices")
+      }
+
+      const data = (await response.json()) as SoftwareResponse
+      onDevicesFound?.(data.devices ?? [])
+    } catch (error) {
+      console.error("Error while fetching matching devices:", error)
+      onDevicesFound?.([])
+    }
   }
 
   const handleDropToSelected = (sw: Software) => {
