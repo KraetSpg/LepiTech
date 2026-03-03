@@ -16,7 +16,6 @@ type Props = {
 };
 
 export function SoftwareItemListSelected({ items, onDropItem, onRemoveItem }: Props) {
-
   return (
     <div
       className="flex flex-wrap gap-4 bg-black/10 w-full h-full border border-dashed border-gray-500 rounded"
