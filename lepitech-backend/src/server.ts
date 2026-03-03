@@ -32,7 +32,6 @@ app.get("/software", (request: Request, response: Response) => {
 
 // Send Requirements and Fitting Devices
 app.post("/software", (request: Request, response: Response) => {
-  console.log(request.body);
   softwareController.getAggregatedRequirements(request.body.softwareids).then((requirements) => {
     if (!requirements) {
       response.status(500).send("Couldn't get aggregated Results");
