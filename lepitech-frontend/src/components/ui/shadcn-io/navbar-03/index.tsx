@@ -84,10 +84,9 @@ export interface Navbar03Props extends React.HTMLAttributes<HTMLElement> {
 
 // Default navigation links
 const defaultNavigationLinks: Navbar03NavItem[] = [
-  { href: '#', label: 'Home', active: true },
-  { href: '#', label: 'Features' },
-  { href: '#', label: 'Pricing' },
-  { href: '#', label: 'About' },
+  { href: '#home', label: 'Home', active: true },
+  { href: '#software', label: 'Software' },
+  { href: '#laptops', label: 'Laptops' },
 ];
 
 export const Navbar03 = React.forwardRef<HTMLElement, Navbar03Props>(
@@ -168,15 +167,15 @@ export const Navbar03 = React.forwardRef<HTMLElement, Navbar03Props>(
                     <NavigationMenuList className="flex-col items-start gap-0">
                       {navigationLinks.map((link, index) => (
                         <NavigationMenuItem key={index} className="w-full">
-                          <button
-                            onClick={(e) => e.preventDefault()}
+                          <NavigationMenuLink
+                            href={link.href}
                             className={cn(
                               'flex w-full items-center rounded-md px-3 py-2 text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground cursor-pointer no-underline',
                               link.active && 'bg-accent text-accent-foreground'
                             )}
                           >
                             {link.label}
-                          </button>
+                          </NavigationMenuLink>
                         </NavigationMenuItem>
                       ))}
                     </NavigationMenuList>
@@ -203,7 +202,6 @@ export const Navbar03 = React.forwardRef<HTMLElement, Navbar03Props>(
                       <NavigationMenuItem key={index}>
                         <NavigationMenuLink
                           href={link.href}
-                          onClick={(e) => e.preventDefault()}
                           className={cn(
                             'group inline-flex h-10 w-max items-center justify-center rounded-md bg-background px-4 py-2 text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground focus:outline-none disabled:pointer-events-none disabled:opacity-50 data-[active]:bg-accent/50 data-[state=open]:bg-accent/50 cursor-pointer relative',
                             'before:absolute before:bottom-0 before:left-0 before:right-0 before:h-0.5 before:bg-primary before:scale-x-0 before:transition-transform before:duration-300 hover:before:scale-x-100',

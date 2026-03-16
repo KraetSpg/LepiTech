@@ -19,7 +19,7 @@ export function SelectLaptop({ devices }: SelectLaptopProps) {
 
   return (
     // Geändert: grid-cols-2 (mobil) bis grid-cols-4 (desktop) für schmalere Karten
-    <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 p-4">
+    <div id="laptops" className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 p-4">
       {devices.map((device) => (
         <Card key={device.id} className="flex flex-col border border-border hover:border-emerald-500 transition-all bg-card shadow-sm overflow-hidden">
           

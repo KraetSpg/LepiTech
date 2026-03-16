@@ -19,7 +19,7 @@ function RootLayout() {
         <Navbar03 />
         <Hero />
 
-        <div className="mx-auto w-full max-w-2xl md:max-w-4xl lg:max-w-[100rem] px-4">
+        <div id="software" className="mx-auto w-full max-w-2xl md:max-w-4xl lg:max-w-[100rem] px-4">
           <SelectSoftwareComponent onDevicesFound={setDevices} />
         </div>
 

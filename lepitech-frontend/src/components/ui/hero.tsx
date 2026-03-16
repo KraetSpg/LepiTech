@@ -7,7 +7,7 @@ import { Popover, PopoverTrigger, PopoverContent } from "@/components/ui/popover
 
 export function Hero() {
   return (
-    <section className="flex flex-col items-center justify-center text-center py-24 px-6 ">
+    <section id="home" className="flex flex-col items-center justify-center text-center py-24 px-6 ">
       <h1 className="text-4xl sm:text-6xl font-bold tracking-tight text-[hsl(var(--primary))]">
         Willkommen bei LepiTech
       </h1>
