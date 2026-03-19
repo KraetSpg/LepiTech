@@ -1,6 +1,14 @@
-import * as React from "react";
-import { Card, CardHeader } from "./card";
-import { useState, useEffect } from "react";
+import { useEffect, useState } from "react";
+
+export const SOFTWARE_CATEGORIES = [
+  "Office",
+  "Kommunikation",
+  "Design & Medien",
+  "Programmierung",
+  "CAD-Software",
+] as const;
+
+export type SoftwareCategory = (typeof SOFTWARE_CATEGORIES)[number];
 
 interface Software {
   id: number;
@@ -12,10 +20,11 @@ interface Software {
 }
 
 type Props = {
+  searchQuery?: string;
   onDragStartItem?: (sw: Software) => void;
 };
 
-export function SoftwareItemList({ onDragStartItem }: Props) {
+export function SoftwareItemList({ searchQuery = "", onDragStartItem }: Props) {
   const [items, setItems] = useState<Software[]>([]);
   const [loading, setLoading] = useState(true);
 
@@ -35,14 +44,29 @@ export function SoftwareItemList({ onDragStartItem }: Props) {
     fetchData();
   }, []);
 
-  if (loading) return <div>Loading software options...</div>;
+  const normalizedQuery = searchQuery.trim().toLowerCase();
+  const visibleItems = normalizedQuery
+    ? items.filter((sw) => {
+        const name = sw.name.toLowerCase();
+        const os = (sw.os ?? "").toLowerCase();
+        return name.includes(normalizedQuery) || os.includes(normalizedQuery);
+      })
+    : items;
+
+  if (loading) {
+    return (
+      <div className="flex h-full min-h-[340px] items-center justify-center text-sm text-muted-foreground">
+        Lade Software...
+      </div>
+    );
+  }
 
   return (
-    <div className="grid grid-cols-1 md:grid-cols-4 gap-4 bg-black/10">
-      {items.map((sw) => (
+    <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3">
+      {visibleItems.map((sw) => (
         <div
           key={sw.id}
-          className="p-4 dark:bg-[#262626] bg-slate-50 rounded-lg shadow-sm border border-gray-600 cursor-grab"
+          className="cursor-grab rounded-xl border border-border bg-card p-4 shadow-sm transition-colors hover:border-primary/60"
           draggable
           onDragStart={(e) => {
             e.dataTransfer.setData("application/json", JSON.stringify(sw));
@@ -53,6 +77,12 @@ export function SoftwareItemList({ onDragStartItem }: Props) {
           <p className="text-sm text-muted-foreground">OS: {sw.os}</p>
         </div>
       ))}
+
+      {visibleItems.length === 0 ? (
+        <div className="col-span-full rounded-xl border border-dashed border-border p-6 text-sm text-muted-foreground">
+          Keine passende Software gefunden.
+        </div>
+      ) : null}
     </div>
   );
 }

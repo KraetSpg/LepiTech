@@ -1,8 +1,15 @@
 import * as React from "react"
-import { SoftwareItemList } from "./SoftwareItemList"
+import { ArrowRight, Search } from "lucide-react"
+import {
+  SOFTWARE_CATEGORIES,
+  SoftwareCategory,
+  SoftwareItemList,
+} from "./SoftwareItemList"
 import { SoftwareItemListSelected } from "./SoftwareItemListSelected"
 import { Button } from "./button"
+import { Input } from "./input"
 import type { Device } from "./SelectLaptop"
+import { cn } from "@/lib/utils"
 
 export interface Software {
   id: number
@@ -26,6 +33,9 @@ const SelectSoftwareComponent = React.forwardRef<
   SelectSoftwareProps
 >(({ className, onDevicesFound, ...props }, ref) => {
   const [selected, setSelected] = React.useState<Software[]>([])
+  const [activeCategory, setActiveCategory] =
+    React.useState<SoftwareCategory | null>(null)
+  const [searchQuery, setSearchQuery] = React.useState("")
 
   const sendItems = async () => {
     const ids = selected.map((sw) => sw.id)
@@ -61,22 +71,67 @@ const SelectSoftwareComponent = React.forwardRef<
     setSelected((prev) => prev.filter((item) => item.id !== id))
   }
 
+  const handleCategoryClick = (category: SoftwareCategory) => {
+    setActiveCategory((prev) => (prev === category ? null : category))
+  }
+
   return (
-    <div className="flex flex-wrap justify-center">
-      <div className="grid grid-cols-[1fr_auto_1fr] items-center gap-4 border border-solid rounded-sm my-12">
-        <SoftwareItemList />
-        <img
-          width="100px"
-          src="https://t4.ftcdn.net/jpg/05/30/79/15/360_F_530791557_T8hNharBQQJqmw0R2FRjCrC9CgNwaeui.jpg"
+    <div
+      ref={ref}
+      className={cn("my-10 w-full", className)}
+      {...props}
+    >
+      <div className="mb-4 flex flex-wrap gap-3">
+        {SOFTWARE_CATEGORIES.map((category) => (
+          <Button
+            key={category}
+            type="button"
+            variant={activeCategory === category ? "default" : "outline"}
+            className={cn(
+              "rounded-xl px-6 py-5 text-base",
+              activeCategory === category
+                ? "bg-primary text-primary-foreground hover:bg-primary/90"
+                : "border-border hover:bg-accent"
+            )}
+            onClick={() => handleCategoryClick(category)}
+          >
+            {category}
+          </Button>
+        ))}
+      </div>
+
+      <div className="mb-4 flex max-w-xl items-center gap-2 rounded-xl border border-border bg-card/50 px-3 py-2 shadow-sm">
+        <Search className="h-4 w-4 shrink-0 text-muted-foreground" />
+        <Input
+          value={searchQuery}
+          onChange={(event) => setSearchQuery(event.target.value)}
+          placeholder="Software suchen..."
+          className="h-8 border-0 bg-transparent px-0 shadow-none focus-visible:ring-0"
+          aria-label="Software suchen"
         />
+      </div>
+
+      <div className="grid grid-cols-1 gap-4 lg:grid-cols-[1fr_auto_1fr] lg:items-start">
+        <div className="min-h-[480px] rounded-sm border border-border p-3">
+          <SoftwareItemList searchQuery={searchQuery} />
+        </div>
+
+        <div className="hidden lg:flex lg:self-center">
+          <ArrowRight className="h-20 w-20 text-muted-foreground" strokeWidth={1.5} />
+        </div>
+
+        <div className="min-h-[480px] rounded-sm border border-border p-3">
         <SoftwareItemListSelected
           items={selected}
           onDropItem={handleDropToSelected}
           onRemoveItem={handleRemoveFromSelected}
-        /></div>
+        />
+        </div>
+      </div>
+
       <Button
         size="lg"
-        className="bg-[hsl(var(--primary))] hover:bg-[hsl(var(--accent))]"
+        className="mt-5 bg-[hsl(var(--primary))] hover:bg-[hsl(var(--accent))]"
         onClick={sendItems}
       >
         Geräte finden

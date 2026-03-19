@@ -6,7 +6,6 @@ import { SelectLaptop } from './components/ui/SelectLaptop'
 import type { Device } from './components/ui/SelectLaptop'
 import { Navbar03 } from './components/ui/shadcn-io/navbar-03/index'
 import { Hero } from "./components/ui/hero"
-import { SearchWithCards } from "./components/ui/hero"
 import { SelectSoftwareComponent } from './components/ui/SelectSoftwareComponent'
 import { useState } from 'react'
 
@@ -23,7 +22,6 @@ function RootLayout() {
           <SelectSoftwareComponent onDevicesFound={setDevices} />
         </div>
 
-        <SearchWithCards />
         <SelectLaptop devices={devices} />
       </div>
     </ThemeProvider>

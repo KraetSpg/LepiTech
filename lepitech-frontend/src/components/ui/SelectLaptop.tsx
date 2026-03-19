@@ -16,11 +16,30 @@ type SelectLaptopProps = {
 };
 
 export function SelectLaptop({ devices }: SelectLaptopProps) {
+  const [sortAscending, setSortAscending] = React.useState(true)
+
+  const sortedDevices = React.useMemo(() => {
+    return [...devices].sort((a, b) => {
+      const priceA = a.price ?? Number.MAX_SAFE_INTEGER
+      const priceB = b.price ?? Number.MAX_SAFE_INTEGER
+      return sortAscending ? priceA - priceB : priceB - priceA
+    })
+  }, [devices, sortAscending])
 
   return (
-    // Geändert: grid-cols-2 (mobil) bis grid-cols-4 (desktop) für schmalere Karten
-    <div id="laptops" className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 p-4">
-      {devices.map((device) => (
+    <section id="laptops" className="p-4">
+      <div className="mb-4 flex justify-end">
+        <Button
+          variant="outline"
+          onClick={() => setSortAscending((prev) => !prev)}
+          className="border-border"
+        >
+          Nach Preis sortieren: {sortAscending ? "Aufsteigend" : "Absteigend"}
+        </Button>
+      </div>
+
+      <div className="grid grid-cols-2 gap-4 md:grid-cols-3 lg:grid-cols-4">
+      {sortedDevices.map((device) => (
         <Card key={device.id} className="flex flex-col border border-border hover:border-emerald-500 transition-all bg-card shadow-sm overflow-hidden">
           
           {/* Kleinerer Bild-Bereich */}
@@ -64,6 +83,7 @@ export function SelectLaptop({ devices }: SelectLaptopProps) {
 
         </Card>
       ))}
-    </div>
+      </div>
+    </section>
   )
 }
