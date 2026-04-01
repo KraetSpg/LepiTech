@@ -1,16 +1,29 @@
-import { StrictMode } from 'react'
+import { StrictMode, useState } from 'react'
 import { createRoot } from 'react-dom/client'
 import './index.css'
+
+// UI Components
 import { ThemeProvider } from "@/components/ui/theme-provider" 
-import { SelectLaptop } from './components/ui/SelectLaptop'
-import type { Device } from './components/ui/SelectLaptop'
 import { Navbar03 } from './components/ui/shadcn-io/navbar-03/index'
 import { Hero } from "./components/ui/hero"
 import { SelectSoftwareComponent } from './components/ui/SelectSoftwareComponent'
-import { useState } from 'react'
+import { SelectLaptop } from './components/ui/SelectLaptop'
+
+// Export Logic
+import { ExportButton } from './components/ui/ExportButton'
+import type { Device } from './components/ui/SelectLaptop'
 
 function RootLayout() {
   const [devices, setDevices] = useState<Device[]>([])
+  const renderExportSection = () => {
+    if (devices.length === 0) return null;
+
+    return (
+      <div className="flex justify-center my-10">
+        <ExportButton devices={devices} software={["Beispiel"]} />
+      </div>
+    );
+  };
 
   return (
     <ThemeProvider defaultTheme="system" storageKey="vite-ui-theme">
@@ -18,11 +31,21 @@ function RootLayout() {
         <Navbar03 />
         <Hero />
 
+        {/* 1. Software Auswahl Bereich */}
         <div id="software" className="mx-auto w-full max-w-2xl md:max-w-4xl lg:max-w-[100rem] px-4">
-          <SelectSoftwareComponent onDevicesFound={setDevices} />
+          <SelectSoftwareComponent 
+            onDevicesFound={setDevices} 
+            // Hinweis: Falls SelectSoftwareComponent Namen zurückgibt, hier per Callback setzen
+          />
         </div>
 
-        <SelectLaptop devices={devices} />
+        {/* 2. Export Button Bereich */}
+        {renderExportSection()}
+
+        {/* 3. Laptop Ergebnisse */}
+        <div className="mx-auto w-full max-w-2xl md:max-w-4xl lg:max-w-[100rem] px-4">
+           <SelectLaptop devices={devices} />
+        </div>
       </div>
     </ThemeProvider>
   )
