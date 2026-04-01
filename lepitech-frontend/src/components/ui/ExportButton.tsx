@@ -10,6 +10,7 @@ interface ExportButtonProps {
 
 export function ExportButton({ devices, software }: ExportButtonProps) {
   const handleDownload = async () => {
+    const { pdf } = await import('@react-pdf/renderer');
     try {
       // Wir erstellen das PDF-Dokument manuell als Blob
       const doc = <LaptopReport devices={devices} selectedSoftware={software} />;
@@ -19,7 +20,7 @@ export function ExportButton({ devices, software }: ExportButtonProps) {
       const url = URL.createObjectURL(blob);
       const link = document.createElement('a');
       link.href = url;
-      link.download = 'laptop-check.pdf';
+      link.download = 'lepitech-summary.pdf';
       
       // Klick simulieren und aufräumen
       document.body.appendChild(link);

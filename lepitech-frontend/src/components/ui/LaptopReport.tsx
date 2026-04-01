@@ -95,12 +95,18 @@ export const LaptopReport = ({ devices, selectedSoftware }: PDFProps) => {
         {/* Software & Anforderungen */}
         <View>
           <Text style={styles.sectionTitle}>Ausgewählte Software & Anforderungen</Text>
-          <View style={styles.softwareBox}>
-            <Text style={{ fontWeight: 'bold', marginBottom: 4 }}>Deine Auswahl:</Text>
-            <Text style={{ color: '#374151' }}>
-              {selectedSoftware && selectedSoftware.length > 0 ? selectedSoftware.join(", ") : "Keine spezifische Software gewählt"}
-            </Text>
-          </View>
+            <View style={styles.softwareBox}>
+                <Text style={{ fontWeight: 'bold', marginBottom: 4 }}>Deine Auswahl:</Text>
+                <Text style={{ 
+                    color: '#374151', 
+                    lineHeight: 1.4, // Bessere Lesbarkeit bei mehreren Zeilen
+                    flexWrap: 'wrap'  // Zwingt den Text zum Umbruch
+                }}>
+                    {selectedSoftware && selectedSoftware.length > 0 
+                    ? selectedSoftware.join(", ") 
+                    : "Keine spezifische Software gewählt"}
+                </Text>
+            </View>
           <Text style={{ fontSize: 9, color: '#6b7280' }}>
             Mindestanforderungen dieser Konfiguration: RAM: {Math.round(minRam / 1024)} GB | Speicher: {minStorage >= 1048576 ? `${(minStorage / 1024 / 1024).toFixed(1)} TB` : `${Math.round(minStorage / 1024)} GB`}
           </Text>

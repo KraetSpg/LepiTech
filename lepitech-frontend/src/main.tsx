@@ -20,21 +20,23 @@ function RootLayout() {
 
     return (
       <div className="flex justify-center my-10">
-        <ExportButton devices={devices} software={["Beispiel"]} />
+        <ExportButton devices={devices} software={softwareNames} />
       </div>
     );
   };
+  const [softwareNames, setSoftwareNames] = useState<string[]>([]);
 
   return (
     <ThemeProvider defaultTheme="system" storageKey="vite-ui-theme">
       <div className="min-h-screen bg-background text-foreground font-sans antialiased">
         <Navbar03 />
-        <Hero />
-
+        
         {/* 1. Software Auswahl Bereich */}
         <div id="software" className="mx-auto w-full max-w-2xl md:max-w-4xl lg:max-w-[100rem] px-4">
+          <Hero />
           <SelectSoftwareComponent 
             onDevicesFound={setDevices} 
+            onSoftwareChange={setSoftwareNames}
             // Hinweis: Falls SelectSoftwareComponent Namen zurückgibt, hier per Callback setzen
           />
         </div>
@@ -44,7 +46,7 @@ function RootLayout() {
 
         {/* 3. Laptop Ergebnisse */}
         <div className="mx-auto w-full max-w-2xl md:max-w-4xl lg:max-w-[100rem] px-4">
-           <SelectLaptop devices={devices} />
+           <SelectLaptop devices={devices} software={softwareNames} />
         </div>
       </div>
     </ThemeProvider>
