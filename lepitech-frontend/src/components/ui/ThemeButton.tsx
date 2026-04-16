@@ -1,4 +1,4 @@
-import { useTheme } from "@/components/ui/theme-provider"
+import { useTheme } from "./theme-provider";
 
 export function ThemeButton() {
   const { theme, setTheme } = useTheme()

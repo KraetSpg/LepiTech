@@ -2,20 +2,20 @@
 
 import * as React from 'react';
 import { useEffect, useState, useRef } from 'react';
-import { Button } from '@/components/ui/button';
+import { Button } from "../../button";
 import {
   NavigationMenu,
   NavigationMenuItem,
   NavigationMenuLink,
   NavigationMenuList,
-} from '@/components/ui/navigation-menu';
+} from "../../navigation-menu";
 import {
   Popover,
   PopoverContent,
   PopoverTrigger,
-} from '@/components/ui/popover';
-import { cn } from '@/lib/utils';
-import { ThemeButton } from '@/components/ui/ThemeButton';
+} from "../../popover";
+import { cn } from "../../../../lib/utils";
+import { ThemeButton } from "../../ThemeButton";
 import type { ComponentProps } from 'react';
 
 // Simple logo component for the navbar

@@ -9,7 +9,7 @@ import { SoftwareItemListSelected } from "./SoftwareItemListSelected"
 import { Button } from "./button"
 import { Input } from "./input"
 import type { Device } from "./SelectLaptop"
-import { cn } from "@/lib/utils"
+import { cn } from "../../lib/utils";
 
 export interface Software {
   id: number

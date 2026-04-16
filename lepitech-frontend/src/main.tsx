@@ -3,18 +3,21 @@ import { createRoot } from 'react-dom/client'
 import './index.css'
 
 // UI Components
-import { ThemeProvider } from "@/components/ui/theme-provider" 
+import { ThemeProvider } from "./components/ui/theme-provider";
 import { Navbar03 } from './components/ui/shadcn-io/navbar-03/index'
 import { Hero } from "./components/ui/hero"
 import { SelectSoftwareComponent } from './components/ui/SelectSoftwareComponent'
 import { SelectLaptop } from './components/ui/SelectLaptop'
-
+import { MinimumRequirementsBox } from "./components/ui/MinimumRequirementsBox"
+ 
 // Export Logic
 import { ExportButton } from './components/ui/ExportButton'
 import type { Device } from './components/ui/SelectLaptop'
 
 function RootLayout() {
   const [devices, setDevices] = useState<Device[]>([])
+  const [showRequirementsBox, setShowRequirementsBox] = useState(false)
+  const [isRequirementsMinimized, setIsRequirementsMinimized] = useState(false)
   const renderExportSection = () => {
     if (devices.length === 0) return null;
 
@@ -35,9 +38,14 @@ function RootLayout() {
         <div id="software" className="mx-auto w-full max-w-2xl md:max-w-4xl lg:max-w-[100rem] px-4">
           <Hero />
           <SelectSoftwareComponent 
-            onDevicesFound={setDevices} 
+            onDevicesFound={(foundDevices) => {
+              setDevices(foundDevices)
+              if (foundDevices.length > 0) {
+                setShowRequirementsBox(true)
+                setIsRequirementsMinimized(false)
+              }
+            }}
             onSoftwareChange={setSoftwareNames}
-            // Hinweis: Falls SelectSoftwareComponent Namen zurückgibt, hier per Callback setzen
           />
         </div>
 
@@ -46,8 +54,14 @@ function RootLayout() {
 
         {/* 3. Laptop Ergebnisse */}
         <div className="mx-auto w-full max-w-2xl md:max-w-4xl lg:max-w-[100rem] px-4">
-           <SelectLaptop devices={devices} software={softwareNames} />
+           <SelectLaptop devices={devices} />
         </div>
+        <MinimumRequirementsBox
+        visible={showRequirementsBox}
+        minimized={isRequirementsMinimized}
+        onMinimize={() => setIsRequirementsMinimized(true)}
+        onExpand={() => setIsRequirementsMinimized(false)}
+        />
       </div>
     </ThemeProvider>
   )
