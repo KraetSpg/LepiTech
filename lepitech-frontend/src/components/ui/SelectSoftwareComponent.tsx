@@ -125,13 +125,14 @@ const SelectSoftwareComponent = React.forwardRef<
           />
         </div>
       </div>
-
-      <Button
-        size="lg" className="mt-5 bg-[hsl(var(--primary))] hover:bg-[hsl(var(--accent))]"
-        onClick={sendItems}
-      >
-        Geräte finden
-      </Button>
+      <div className="flex justify-center w-full">
+        <Button
+          size="lg" className="mt-5 bg-[hsl(var(--primary))] hover:bg-[hsl(var(--accent))] block"
+          onClick={sendItems}
+        >
+          Geräte finden
+        </Button>
+      </div>
     </div>
   )
 })
