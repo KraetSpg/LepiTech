@@ -33,10 +33,9 @@ function RootLayout() {
     <ThemeProvider defaultTheme="system" storageKey="vite-ui-theme">
       <div className="min-h-screen bg-background text-foreground font-sans antialiased">
         <Navbar03 />
-        
+        <Hero />
         {/* 1. Software Auswahl Bereich */}
         <div id="software" className="mx-auto w-full max-w-2xl md:max-w-4xl lg:max-w-[100rem] px-4">
-          <Hero />
           <SelectSoftwareComponent 
             onDevicesFound={(foundDevices) => {
               setDevices(foundDevices)
