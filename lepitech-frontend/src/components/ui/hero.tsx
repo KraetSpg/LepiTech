@@ -21,7 +21,7 @@ export function Hero() {
 };
 
   return (
-    <section id="home" className="flex flex-col items-center justify-center text-center py-24 px-6 ">
+    <section id="home" className="flex flex-col items-center justify-center text-center py-24 px-6 w-full h-screen">
       <h1 className="text-4xl sm:text-6xl font-bold tracking-tight text-[hsl(var(--primary))]">
         Willkommen bei LepiTech
       </h1>
