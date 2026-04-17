@@ -9,6 +9,7 @@ import { SoftwareItemListSelected } from "./SoftwareItemListSelected"
 import { Button } from "./button"
 import { Input } from "./input"
 import type { Device } from "./SelectLaptop"
+import type { AggregatedRequirements } from "./MinimumRequirementsBox"
 import { cn } from "../../lib/utils";
 
 export interface Software {
@@ -22,18 +23,20 @@ export interface Software {
 
 interface SoftwareResponse {
   devices: Device[]
+  requirements: AggregatedRequirements
 }
 
 // Hier die Props um onSoftwareChange erweitern
 type SelectSoftwareProps = React.HTMLAttributes<HTMLDivElement> & {
   onDevicesFound?: (devices: Device[]) => void
   onSoftwareChange?: (names: string[]) => void
+  onRequirementsFound?: (requirements: AggregatedRequirements | null) => void
 }
 
 const SelectSoftwareComponent = React.forwardRef<
   HTMLDivElement,
   SelectSoftwareProps
->(({ className, onDevicesFound, onSoftwareChange, ...props }, ref) => {
+>(({ className, onDevicesFound, onSoftwareChange, onRequirementsFound, ...props }, ref) => {
   const [selected, setSelected] = React.useState<Software[]>([])
   const [activeCategory, setActiveCategory] = React.useState<SoftwareCategory | null>(null)
   const [searchQuery, setSearchQuery] = React.useState("")
@@ -56,9 +59,11 @@ const SelectSoftwareComponent = React.forwardRef<
 
       const data = (await response.json()) as SoftwareResponse
       onDevicesFound?.(data.devices ?? [])
+      onRequirementsFound?.(data.requirements ?? null)
     } catch (error) {
       console.error("Error while fetching matching devices:", error)
       onDevicesFound?.([])
+      onRequirementsFound?.(null)
     }
   }
 

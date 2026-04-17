@@ -9,6 +9,7 @@ import { Hero } from "./components/ui/hero"
 import { SelectSoftwareComponent } from './components/ui/SelectSoftwareComponent'
 import { SelectLaptop } from './components/ui/SelectLaptop'
 import { MinimumRequirementsBox } from "./components/ui/MinimumRequirementsBox"
+import type { AggregatedRequirements } from "./components/ui/MinimumRequirementsBox"
  
 // Export Logic
 import { ExportButton } from './components/ui/ExportButton'
@@ -16,6 +17,7 @@ import type { Device } from './components/ui/SelectLaptop'
 
 function RootLayout() {
   const [devices, setDevices] = useState<Device[]>([])
+  const [requirements, setRequirements] = useState<AggregatedRequirements | null>(null)
   const [showRequirementsBox, setShowRequirementsBox] = useState(false)
   const [isRequirementsMinimized, setIsRequirementsMinimized] = useState(false)
   const renderExportSection = () => {
@@ -39,8 +41,11 @@ function RootLayout() {
           <SelectSoftwareComponent 
             onDevicesFound={(foundDevices) => {
               setDevices(foundDevices)
-              if (foundDevices.length > 0) {
-                setShowRequirementsBox(true)
+            }}
+            onRequirementsFound={(foundRequirements) => {
+              setRequirements(foundRequirements)
+              setShowRequirementsBox(foundRequirements !== null)
+              if (foundRequirements) {
                 setIsRequirementsMinimized(false)
               }
             }}
@@ -56,10 +61,11 @@ function RootLayout() {
            <SelectLaptop devices={devices} />
         </div>
         <MinimumRequirementsBox
-        visible={showRequirementsBox}
-        minimized={isRequirementsMinimized}
-        onMinimize={() => setIsRequirementsMinimized(true)}
-        onExpand={() => setIsRequirementsMinimized(false)}
+          visible={showRequirementsBox}
+          minimized={isRequirementsMinimized}
+          requirements={requirements}
+          onMinimize={() => setIsRequirementsMinimized(true)}
+          onExpand={() => setIsRequirementsMinimized(false)}
         />
       </div>
     </ThemeProvider>

@@ -1,8 +1,27 @@
+export interface AggregatedRequirements {
+  cpu_cores: number
+  cpu_frequency: number
+  createdAt: string
+  id: number
+  os: string
+  ram: number
+  storage: number
+}
+
 type MinimumRequirementsBoxProps = {
   visible: boolean
   minimized: boolean
   onMinimize: () => void
   onExpand: () => void
+  requirements: AggregatedRequirements | null
+}
+
+function formatValue(value: string | number | null | undefined, suffix = "") {
+  if (value === null || value === undefined || value === "") {
+    return "Nicht angegeben"
+  }
+
+  return `${value}${suffix}`
 }
 
 export function MinimumRequirementsBox({
@@ -10,6 +29,7 @@ export function MinimumRequirementsBox({
   minimized,
   onMinimize,
   onExpand,
+  requirements,
 }: MinimumRequirementsBoxProps) {
   if (!visible) return null
 
@@ -40,23 +60,38 @@ export function MinimumRequirementsBox({
 
           <div className="space-y-3">
             <div className="rounded-xl border border-zinc-800 bg-zinc-950/40 p-3">
-              <span className="text-sm text-zinc-400">GPU:</span>
+              <span className="text-sm text-zinc-400">CPU-Kerne:</span>
+              <p className="mt-1 text-base font-medium text-white">
+                {formatValue(requirements?.cpu_cores)}
+              </p>
+            </div>
+
+            <div className="rounded-xl border border-zinc-800 bg-zinc-950/40 p-3">
+              <span className="text-sm text-zinc-400">CPU-Frequenz:</span>
+              <p className="mt-1 text-base font-medium text-white">
+                {formatValue(requirements?.cpu_frequency, " GHz")}
+              </p>
             </div>
 
             <div className="rounded-xl border border-zinc-800 bg-zinc-950/40 p-3">
               <span className="text-sm text-zinc-400">RAM:</span>
-            </div>
-
-            <div className="rounded-xl border border-zinc-800 bg-zinc-950/40 p-3">
-              <span className="text-sm text-zinc-400">CPU:</span>
+              <p className="mt-1 text-base font-medium text-white">
+                {formatValue(requirements?.ram, " GB")}
+              </p>
             </div>
 
             <div className="rounded-xl border border-zinc-800 bg-zinc-950/40 p-3">
               <span className="text-sm text-zinc-400">Speicher:</span>
+              <p className="mt-1 text-base font-medium text-white">
+                {formatValue(requirements?.storage, " GB")}
+              </p>
             </div>
 
             <div className="rounded-xl border border-zinc-800 bg-zinc-950/40 p-3">
               <span className="text-sm text-zinc-400">Betriebssystem:</span>
+              <p className="mt-1 text-base font-medium text-white">
+                {formatValue(requirements?.os)}
+              </p>
             </div>
           </div>
         </div>
