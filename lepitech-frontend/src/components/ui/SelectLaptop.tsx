@@ -74,7 +74,7 @@ export function SelectLaptop({ devices }: SelectLaptopProps) {
 
           <CardFooter className="p-3 pt-0 flex flex-col gap-2">
             <div className="text-lg font-bold text-center text-foreground border-t pt-2">
-              {((device.price ?? 0) / 100).toLocaleString('de-DE', { style: 'currency', currency: 'EUR' })}
+              {((device.price ?? 0)).toLocaleString('de-DE', { style: 'currency', currency: 'EUR' })}
             </div>
             <Button className="w-full h-8 text-xs bg-emerald-500 hover:bg-emerald-600 text-white font-bold">
               Kaufen

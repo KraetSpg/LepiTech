@@ -561,22 +561,22 @@ async function seedDevices() {
         {
             name: "Lenovo Legion 5 Pro 16",
             os: "Windows",
-            cpu_cores: 8,              // e.g. Ryzen 7 7840HS / i7‑13700H class
-            cpu_frequency: 5.0,
+            cpu_cores: 16,             // Ryzen 9 8945HX, 16C/32T [2024 model]
+            cpu_frequency: 5.2,        // boost up to ~5.2 GHz
             storage: 1024,
-            ram: 16 * 1024,
+            ram: 32 * 1024,            // 32 GB DDR5 typical
             manufacturer: "Lenovo",
-            price: 1600
+            price: 1800                // ~1.8k for high-end config
         },
         {
             name: "ASUS ProArt Studiobook 16",
             os: "Windows",
-            cpu_cores: 12,             // creator‑class Intel/AMD CPU
-            cpu_frequency: 4.7,
+            cpu_cores: 24,             // Intel i9‑13900H, 8P+16E cores
+            cpu_frequency: 5.4,        // boost up to ~5.4 GHz
             storage: 2048,             // 2 TB SSD for media projects
             ram: 32 * 1024,            // 32 GB for Photoshop/Premiere/AE
             manufacturer: "ASUS",
-            price: 2800
+            price: 3200                // ~3.2k € for i9 creator config
         },
         {
             name: "Apple MacBook Pro 14 M3",
