@@ -17,14 +17,16 @@ interface Software {
   cpu: string | null;
   ram: number | null;
   storage: number | null;
+  categories: string | null;
 }
 
 type Props = {
   searchQuery?: string;
+  activeCategory?: SoftwareCategory | null;
   onDragStartItem?: (sw: Software) => void;
 };
 
-export function SoftwareItemList({ searchQuery = "", onDragStartItem }: Props) {
+export function SoftwareItemList({ searchQuery = "", activeCategory, onDragStartItem }: Props) {
   const [items, setItems] = useState<Software[]>([]);
   const [loading, setLoading] = useState(true);
 
@@ -45,13 +47,27 @@ export function SoftwareItemList({ searchQuery = "", onDragStartItem }: Props) {
   }, []);
 
   const normalizedQuery = searchQuery.trim().toLowerCase();
-  const visibleItems = normalizedQuery
-    ? items.filter((sw) => {
-        const name = sw.name.toLowerCase();
-        const os = (sw.os ?? "").toLowerCase();
-        return name.includes(normalizedQuery) || os.includes(normalizedQuery);
-      })
-    : items;
+  const visibleItems = items.filter((sw) => {
+    // Filter by search query
+    if (normalizedQuery) {
+      const name = sw.name.toLowerCase();
+      const os = (sw.os ?? "").toLowerCase();
+      if (!name.includes(normalizedQuery) && !os.includes(normalizedQuery)) {
+        return false;
+      }
+    }
+
+    // Filter by category
+    if (activeCategory) {
+      const categories = (sw.categories ?? "").toLowerCase();
+      const normalizedCategory = activeCategory.toLowerCase();
+      if (!categories.includes(normalizedCategory)) {
+        return false;
+      }
+    }
+
+    return true;
+  });
 
   if (loading) {
     return (
@@ -62,7 +78,7 @@ export function SoftwareItemList({ searchQuery = "", onDragStartItem }: Props) {
   }
 
   return (
-    <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3">
+    <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3 max-h-[80vh] overflow-auto">
       {visibleItems.map((sw) => (
         <div
           key={sw.id}

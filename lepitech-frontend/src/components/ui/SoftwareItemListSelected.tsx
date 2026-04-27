@@ -7,6 +7,7 @@ interface Software {
   cpu: string | null;
   ram: number | null;
   storage: number | null;
+  categories: string | null;
 }
 
 type Props = {

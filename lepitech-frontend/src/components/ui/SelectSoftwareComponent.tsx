@@ -19,6 +19,7 @@ export interface Software {
   cpu: string | null
   ram: number | null
   storage: number | null
+  categories: string | null
 }
 
 interface SoftwareResponse {
@@ -26,7 +27,6 @@ interface SoftwareResponse {
   requirements: AggregatedRequirements
 }
 
-// Hier die Props um onSoftwareChange erweitern
 type SelectSoftwareProps = React.HTMLAttributes<HTMLDivElement> & {
   onDevicesFound?: (devices: Device[]) => void
   onSoftwareChange?: (names: string[]) => void
@@ -115,7 +115,7 @@ const SelectSoftwareComponent = React.forwardRef<
       {/* Drag & Drop Bereich */}
       <div className="grid grid-cols-1 gap-4 lg:grid-cols-[1fr_auto_1fr] lg:items-start">
         <div className="min-h-[480px] rounded-sm border border-border p-3">
-          <SoftwareItemList searchQuery={searchQuery} />
+          <SoftwareItemList searchQuery={searchQuery} activeCategory={activeCategory} />
         </div>
 
         <div className="hidden lg:flex lg:self-center">
