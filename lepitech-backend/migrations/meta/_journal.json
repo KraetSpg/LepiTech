@@ -43,6 +43,13 @@
       "when": 1765791275193,
       "tag": "0005_illegal_harrier",
       "breakpoints": true
+    },
+    {
+      "idx": 6,
+      "version": "7",
+      "when": 1777308930944,
+      "tag": "0006_spooky_doomsday",
+      "breakpoints": true
     }
   ]
 }

@@ -1,7 +1,5 @@
 import { db } from '../db';
-import { softwareTable, InsertSoftware, SelectSoftware, categoriesTable, softwareCategoriesTable, devicesTable } from './schema';
-
-db.delete(softwareCategoriesTable);
+import { softwareTable, InsertSoftware, SelectSoftware, devicesTable } from './schema';
 
 async function seedSoftware() {
     // Clear the whole table to assign the same ids to the softwares
@@ -16,7 +14,8 @@ async function seedSoftware() {
             cpu_frequency: 2.5,           // 2+ GHz 64‑bit CPU [web:43][web:36]
             ram: 1024 * 8,                // 8 GB min, 16 GB recommended [web:43]
             os: "Windows",
-            storage: 5                    // ~5 GB app + cache [web:43]
+            storage: 5,                   // ~5 GB app + cache [web:43]
+            categories: "design & medien"
         },
         {
             id: 2,
@@ -25,7 +24,8 @@ async function seedSoftware() {
             cpu_frequency: 2.5,
             ram: 1024 * 8,                // 8 GB min typical for Lightroom
             os: "Windows",
-            storage: 3                    // a few GB + catalog/cache
+            storage: 3,                   // a few GB + catalog/cache
+            categories: "design & medien"
         },
         {
             id: 3,
@@ -34,7 +34,8 @@ async function seedSoftware() {
             cpu_frequency: 2.0,           // modest 64‑bit CPU is enough
             ram: 1024 * 4,                // 4 GB min typical
             os: "Windows",
-            storage: 1                    // ~200–500 MB install
+            storage: 1,                   // ~200–500 MB install
+            categories: "design & medien"
         },
         {
             id: 4,
@@ -43,7 +44,8 @@ async function seedSoftware() {
             cpu_frequency: 3.0,           // 6th gen i5+/Ryzen 5+ class [web:41][web:44]
             ram: 1024 * 16,               // 16 GB for HD, 32 GB for 4K [web:41][web:44]
             os: "Windows",
-            storage: 8                    // base install (media on separate drives) [web:44]
+            storage: 8,                   // base install (media on separate drives) [web:44]
+            categories: "design & medien"
         },
         {
             id: 5,
@@ -52,7 +54,8 @@ async function seedSoftware() {
             cpu_frequency: 3.0,           // multi‑core CPU recommended
             ram: 1024 * 16,               // 16 GB min, more for Fusion/4K
             os: "Windows",
-            storage: 10                   // app + cache
+            storage: 10,                  // app + cache
+            categories: "design & medien"
         },
         {
             id: 6,
@@ -61,7 +64,8 @@ async function seedSoftware() {
             cpu_frequency: 3.0,           // many cores & high clock
             ram: 1024 * 16,               // 16 GB min, 32+ GB recommended
             os: "Windows",
-            storage: 15                   // app plus disk cache
+            storage: 15,                  // app plus disk cache
+            categories: "design & medien"
         },
         {
             id: 7,
@@ -70,7 +74,8 @@ async function seedSoftware() {
             cpu_frequency: 3.0,
             ram: 1024 * 8,                // 8 GB minimum, more for big scenes
             os: "Windows",
-            storage: 2
+            storage: 2,
+            categories: "design & medien"
         },
         {
             id: 8,
@@ -79,7 +84,8 @@ async function seedSoftware() {
             cpu_frequency: 3.0,
             ram: 1024 * 16,               // around 16 GB for HD editing
             os: "Windows",
-            storage: 8
+            storage: 8,
+            categories: "design & medien"
         },
         {
             id: 9,
@@ -88,7 +94,8 @@ async function seedSoftware() {
             cpu_frequency: 2.5,
             ram: 1024 * 8,                // similar to Photoshop [web:43]
             os: "Windows",
-            storage: 3
+            storage: 3,
+            categories: "design & medien"
         },
         {
             id: 10,
@@ -97,7 +104,8 @@ async function seedSoftware() {
             cpu_frequency: 2.0,
             ram: 1024 * 8,                // 8 GB min for layout work
             os: "Windows",
-            storage: 3
+            storage: 3,
+            categories: "design & medien"
         },
 
         // --- OFFICE / BUSINESS ---
@@ -109,7 +117,8 @@ async function seedSoftware() {
             cpu_frequency: 1.6,           // 1.6+ GHz, 2 cores [web:42][web:45]
             ram: 1024 * 4,                // 4 GB for 64‑bit [web:42][web:45]
             os: "Windows 10/11",
-            storage: 4                    // Office install shared [web:42][web:45]
+            storage: 4,                   // Office install shared [web:42][web:45]
+            categories: "office"
         },
         {
             id: 12,
@@ -118,7 +127,8 @@ async function seedSoftware() {
             cpu_frequency: 1.6,
             ram: 1024 * 4,
             os: "Windows 10/11",
-            storage: 4
+            storage: 4,
+            categories: "office"
         },
         {
             id: 13,
@@ -127,7 +137,8 @@ async function seedSoftware() {
             cpu_frequency: 1.6,
             ram: 1024 * 4,
             os: "Windows 10/11",
-            storage: 4
+            storage: 4,
+            categories: "office"
         },
         {
             id: 14,
@@ -136,7 +147,8 @@ async function seedSoftware() {
             cpu_frequency: 1.6,
             ram: 1024 * 4,
             os: "Windows 10/11",
-            storage: 4
+            storage: 4,
+            categories: "office, kommunikation"
         },
         {
             id: 15,
@@ -145,7 +157,8 @@ async function seedSoftware() {
             cpu_frequency: 2.0,
             ram: 1024 * 4,                // 4 GB enough for typical docs
             os: "Windows 10/11",
-            storage: 2
+            storage: 2,
+            categories: "office"
         },
         {
             id: 16,
@@ -154,7 +167,8 @@ async function seedSoftware() {
             cpu_frequency: 2.0,
             ram: 1024 * 8,                // 8 GB typical for SAP client setups
             os: "Windows",
-            storage: 5
+            storage: 5,
+            categories: "office"
         },
         {
             id: 17,
@@ -163,7 +177,8 @@ async function seedSoftware() {
             cpu_frequency: 2.0,
             ram: 1024 * 8,
             os: "Windows",
-            storage: 5
+            storage: 5,
+            categories: "office"
         },
         {
             id: 18,
@@ -172,7 +187,8 @@ async function seedSoftware() {
             cpu_frequency: 2.0,
             ram: 1024 * 4,
             os: "Windows",
-            storage: 1
+            storage: 1,
+            categories: "kommunikation"
         },
         {
             id: 19,
@@ -181,7 +197,8 @@ async function seedSoftware() {
             cpu_frequency: 1.6,
             ram: 1024 * 4,                // Teams often needs 4 GB+
             os: "Windows",
-            storage: 3
+            storage: 3,
+            categories: "kommunikation"
         },
         {
             id: 20,
@@ -190,35 +207,166 @@ async function seedSoftware() {
             cpu_frequency: 2.0,
             ram: 1024 * 4,
             os: "Windows",
-            storage: 1
+            storage: 1,
+            categories: "kommunikation"
+        },
+
+        // --- PROGRAMMING ---
+
+        {
+            id: 21,
+            name: "Visual Studio Code 2025",
+            cpu_cores: 2,
+            cpu_frequency: 1.6,
+            ram: 1024 * 4,                // 4 GB typical for VSCode
+            os: "Windows",
+            storage: 2,                   // lightweight, ~1.5-2 GB
+            categories: "programmierung"
+        },
+        {
+            id: 22,
+            name: "Visual Studio Professional 2022",
+            cpu_cores: 4,
+            cpu_frequency: 2.5,
+            ram: 1024 * 8,                // 8 GB minimum for VS Pro
+            os: "Windows",
+            storage: 10,                  // ~8-10 GB installation
+            categories: "programmierung"
+        },
+        {
+            id: 23,
+            name: "JetBrains IntelliJ IDEA Ultimate",
+            cpu_cores: 4,
+            cpu_frequency: 2.5,
+            ram: 1024 * 8,                // 8 GB recommended
+            os: "Windows",
+            storage: 3,                   // ~2-3 GB app
+            categories: "programmierung"
+        },
+        {
+            id: 24,
+            name: "PyCharm Professional",
+            cpu_cores: 4,
+            cpu_frequency: 2.5,
+            ram: 1024 * 8,                // 8 GB recommended for Python development
+            os: "Windows",
+            storage: 2,                   // ~2 GB installation
+            categories: "programmierung"
+        },
+        {
+            id: 25,
+            name: "WebStorm 2025",
+            cpu_cores: 4,
+            cpu_frequency: 2.5,
+            ram: 1024 * 8,                // 8 GB for web development
+            os: "Windows",
+            storage: 2,
+            categories: "programmierung"
+        },
+        {
+            id: 26,
+            name: "Git for Windows",
+            cpu_cores: 2,
+            cpu_frequency: 1.6,
+            ram: 1024 * 2,                // minimal requirements
+            os: "Windows",
+            storage: 1,                   // ~300 MB
+            categories: "programmierung"
+        },
+        {
+            id: 27,
+            name: "Docker Desktop for Windows",
+            cpu_cores: 4,
+            cpu_frequency: 2.5,
+            ram: 1024 * 8,                // 8 GB minimum with WSL2
+            os: "Windows",
+            storage: 5,                   // ~5 GB for installation and images
+            categories: "programmierung"
+        },
+        {
+            id: 28,
+            name: "Postman 2025",
+            cpu_cores: 2,
+            cpu_frequency: 2.0,
+            ram: 1024 * 4,                // 4 GB for API testing
+            os: "Windows",
+            storage: 2,                   // ~1.5-2 GB
+            categories: "programmierung"
+        },
+
+        // --- CAD SOFTWARE ---
+
+        {
+            id: 29,
+            name: "AutoCAD 2025",
+            cpu_cores: 4,
+            cpu_frequency: 2.5,
+            ram: 1024 * 8,                // 8 GB minimum, 16 GB recommended
+            os: "Windows",
+            storage: 6,                   // ~6 GB installation
+            categories: "cad-software"
+        },
+        {
+            id: 30,
+            name: "SolidWorks 2024-2025",
+            cpu_cores: 6,
+            cpu_frequency: 2.5,
+            ram: 1024 * 16,               // 16 GB minimum, 32 GB for complex models
+            os: "Windows",
+            storage: 15,                  // ~12-15 GB installation
+            categories: "cad-software"
+        },
+        {
+            id: 31,
+            name: "Fusion 360 (Cloud-based)",
+            cpu_cores: 4,
+            cpu_frequency: 2.5,
+            ram: 1024 * 8,                // 8 GB for smooth operation
+            os: "Windows",
+            storage: 3,                   // ~2-3 GB client
+            categories: "cad-software"
+        },
+        {
+            id: 32,
+            name: "FreeCAD 0.22",
+            cpu_cores: 2,
+            cpu_frequency: 2.0,
+            ram: 1024 * 4,                // 4 GB minimum
+            os: "Windows",
+            storage: 1,                   // ~800 MB - 1 GB
+            categories: "cad-software"
+        },
+        {
+            id: 33,
+            name: "DraftSight 2024",
+            cpu_cores: 2,
+            cpu_frequency: 2.0,
+            ram: 1024 * 4,                // 4 GB
+            os: "Windows",
+            storage: 3,                   // ~2-3 GB
+            categories: "cad-software"
+        },
+        {
+            id: 34,
+            name: "LibreCAD 2.2",
+            cpu_cores: 2,
+            cpu_frequency: 2.0,
+            ram: 1024 * 2,                // 2 GB minimum
+            os: "Windows",
+            storage: 1,                   // ~500 MB - 1 GB
+            categories: "cad-software"
+        },
+        {
+            id: 35,
+            name: "SketchUp Pro 2024",
+            cpu_cores: 4,
+            cpu_frequency: 2.5,
+            ram: 1024 * 8,                // 8 GB recommended
+            os: "Windows",
+            storage: 2,                   // ~2 GB installation
+            categories: "cad-software"
         }
     ]);
-}
-
-async function seedCategories() {
-    await db.delete(categoriesTable);
-    await db.insert(categoriesTable).values({
-        id: 1,
-        name: "CAD-Entwickler",
-    })
-
-    // Insert Relation for this Category to have Softwares in it
-    await db.insert(softwareCategoriesTable).values({
-        softwareId: 1,
-        categoryId: 1
-    });
-    await db.insert(softwareCategoriesTable).values({
-        softwareId: 2,
-        categoryId: 1
-    });
-    await db.insert(softwareCategoriesTable).values({
-        softwareId: 3,
-        categoryId: 1
-    })
-    await db.insert(softwareCategoriesTable).values({
-        softwareId: 4,
-        categoryId: 1
-    })
 }
 
 async function seedDevices() {
@@ -483,9 +631,7 @@ async function seedDevices() {
     ]);
 }
 async function clearAndSeed() {
-    await db.delete(softwareCategoriesTable);
     await seedSoftware();
-    await seedCategories();
     await seedDevices();
 }
 

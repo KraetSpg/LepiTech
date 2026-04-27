@@ -1,11 +1,5 @@
 import { pgTable, serial, varchar, integer, numeric, timestamp, foreignKey } from "drizzle-orm/pg-core";
 
-// Kategorien-Tabelle
-export const categoriesTable = pgTable("categories", {
-  id: serial("id").primaryKey(),
-  name: varchar("name", { length: 128 }).notNull(),
-});
-
 // Software-Tabelle
 export const softwareTable = pgTable("software", {
   id: serial("id").primaryKey(),
@@ -15,12 +9,7 @@ export const softwareTable = pgTable("software", {
   cpu_frequency: numeric("cpu_frequency").$type<number>(), // Taktrate des CPUs in GHz
   ram: integer("ram"), // in MB
   storage: integer("storage"), // in GB
-});
-
-// Many-to-Many-Verknüpfung Software <-> Kategorien
-export const softwareCategoriesTable = pgTable("software_categories", {
-  softwareId: integer("software_id").references(() => softwareTable.id).notNull(),
-  categoryId: integer("category_id").references(() => categoriesTable.id).notNull(),
+  categories: varchar("categories", { length: 512})
 });
 
 // Geräte-Tabelle
@@ -61,5 +50,4 @@ export const generationLogsTable = pgTable("generation_logs", {
 export type SelectSoftware = typeof softwareTable.$inferSelect;
 export type SelectDevices = typeof devicesTable.$inferSelect;
 export type SelectAggregatedRequirements = typeof aggregatedRequirementsTable.$inferSelect;
-export type SelectCategories = typeof categoriesTable.$inferSelect;
 export type InsertSoftware = typeof softwareTable.$inferInsert;
