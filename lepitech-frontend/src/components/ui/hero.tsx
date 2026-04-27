@@ -27,7 +27,7 @@ export function Hero() {
       </h1>
 
       <p className="mt-4 max-w-2xl text-lg text-muted-foreground">
-        Wir entwickeln moderne, nutzerfreundliche Softwarelösungen für dein Unternehmen.
+        Wir zeigen dir, was du brauchst.
       </p>
 
       <div className="mt-8 flex gap-4">

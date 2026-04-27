@@ -1,5 +1,5 @@
 import * as React from "react"
-import { ArrowRight, Search } from "lucide-react"
+import { ArrowRight, Search, Info } from "lucide-react"
 import {
   SOFTWARE_CATEGORIES,
   SoftwareCategory,
@@ -8,6 +8,7 @@ import {
 import { SoftwareItemListSelected } from "./SoftwareItemListSelected"
 import { Button } from "./button"
 import { Input } from "./input"
+import { Popover, PopoverTrigger, PopoverContent } from "./popover"
 import type { Device } from "./SelectLaptop"
 import type { AggregatedRequirements } from "./MinimumRequirementsBox"
 import { cn } from "../../lib/utils";
@@ -84,7 +85,7 @@ const SelectSoftwareComponent = React.forwardRef<
   return (
     <div id="search-section" ref={ref} className={cn("my-10 w-full", className)} {...props}>
       {/* Kategorien Filter */}
-      <div className="mb-4 flex flex-wrap gap-3">
+      <div className="mb-4 flex flex-wrap gap-3 items-center">
         {SOFTWARE_CATEGORIES.map((category) => (
           <Button
             key={category}
@@ -99,6 +100,45 @@ const SelectSoftwareComponent = React.forwardRef<
             {category}
           </Button>
         ))}
+        <Popover>
+          <PopoverTrigger asChild>
+            <Button
+              type="button"
+              variant="outline"
+              size="icon"
+              className="rounded-xl h-11 w-11 ml-auto"
+            >
+              <Info className="h-4 w-4" />
+            </Button>
+          </PopoverTrigger>
+          <PopoverContent align="start" className="w-80 mr-20">
+            <div className="space-y-3">
+              <h3 className="font-semibold text-sm">Wie funktioniert die Auswahl?</h3>
+              <div className="space-y-2 text-sm text-muted-foreground">
+                <div>
+                  <p className="font-medium text-foreground mb-1">1. Software filtern</p>
+                  <p>Klicke auf eine Kategorie um die Software zu filtern, oder nutze die Suchleiste.</p>
+                </div>
+                <div>
+                  <p className="font-medium text-foreground mb-1">2. Software auswählen</p>
+                  <p>Ziehe die gewünschte Software von der linken Liste auf die rechte Liste (Drag & Drop).</p>
+                </div>
+                <div>
+                  <p className="font-medium text-foreground mb-1">3. Software entfernen</p>
+                  <p>Klicke auf das Feld bei der Software in der rechten Liste um sie zu entfernen.</p>
+                </div>
+                <div>
+                  <p className="font-medium text-foreground mb-1">4. Geräte finden</p>
+                  <p>Klicke auf „Geräte finden" um die Mindestanforderungen zu berechnen und passende PCs zu sehen.</p>
+                </div>
+                <div>
+                  <p className="font-medium text-foreground mb-1">5. Download</p>
+                  <p>Um dir deine Ergebnisse für später zu speichern kannst du sie dir als PDF herunterladen. Klicke dazu einfach auf "Ergebnis als PDF speichern."</p>
+                </div>
+              </div>
+            </div>
+          </PopoverContent>
+        </Popover>
       </div>
 
       {/* Suche */}
