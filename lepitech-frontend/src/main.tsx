@@ -36,6 +36,10 @@ function RootLayout() {
       <div className="min-h-screen bg-background text-foreground font-sans antialiased">
         <Navbar03 />
         <Hero />
+        <div
+          aria-hidden="true"
+          className="h-16 w-full bg-gradient-to-b from-[#f4fbf8] via-[#eef8f4] to-[hsl(var(--background))] dark:from-[#050b09] dark:via-[#0e1512] dark:to-[hsl(var(--background))]"
+        />
         {/* 1. Software Auswahl Bereich */}
         <div id="software" className="mx-auto w-full max-w-2xl md:max-w-4xl lg:max-w-[100rem] px-4">
           <SelectSoftwareComponent 
