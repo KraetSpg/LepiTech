@@ -4,6 +4,7 @@ import { cva, type VariantProps } from "class-variance-authority"
 
 import { cn } from "../../lib/utils";
 
+// Centralized style map for all button variants and sizes.
 const buttonVariants = cva(
   "inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0",
   {
@@ -28,25 +29,32 @@ const buttonVariants = cva(
       },
     },
     defaultVariants: {
+      // Fallbacks if no explicit variant/size is passed.
       variant: "default",
       size: "default",
     },
   }
 )
 
+// Combines native button attributes with our variant controls.
 export interface ButtonProps
   extends React.ButtonHTMLAttributes<HTMLButtonElement>,
     VariantProps<typeof buttonVariants> {
+  // Renders the button styles onto a child element (Radix Slot pattern).
   asChild?: boolean
 }
 
+// forwardRef allows parent components to focus/measure the underlying element.
 const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
   ({ className, variant, size, asChild = false, ...props }, ref) => {
+    // Allows using e.g. links with button styling while keeping semantics.
     const Comp = asChild ? Slot : "button"
     return (
       <Comp
+        // Merge generated variant classes with any additional custom className.
         className={cn(buttonVariants({ variant, size, className }))}
         ref={ref}
+        // Forward all remaining HTML props like onClick, type, disabled, aria-*, etc.
         {...props}
       />
     )
