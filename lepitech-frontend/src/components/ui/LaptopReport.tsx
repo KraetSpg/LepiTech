@@ -131,7 +131,7 @@ export const LaptopReport = ({ devices, selectedSoftware }: PDFProps) => {
                 {minStorage >= 1000 ? `${(minStorage / 1024).toFixed(1)} TB` : `${Math.round(minStorage)} GB`}
               </Text>
               <Text style={styles.col4}>
-                {((device.price ?? 0) / 100).toLocaleString('de-DE', { style: 'currency', currency: 'EUR' })}
+                {((device.price ?? 0)).toLocaleString('de-DE', { style: 'currency', currency: 'EUR' })}
               </Text>
             </View>
           ))}
