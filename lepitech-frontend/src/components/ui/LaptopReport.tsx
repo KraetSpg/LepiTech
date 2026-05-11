@@ -108,7 +108,7 @@ export const LaptopReport = ({ devices, selectedSoftware }: PDFProps) => {
                 </Text>
             </View>
           <Text style={{ fontSize: 9, color: '#6b7280' }}>
-            Mindestanforderungen dieser Konfiguration: RAM: {Math.round(minRam / 1024)} GB | Speicher: {minStorage >= 1048576 ? `${(minStorage / 1024 / 1024).toFixed(1)} TB` : `${Math.round(minStorage / 1024)} GB`}
+            Mindestanforderungen dieser Konfiguration: RAM: {Math.round(minRam / 1024)} GB | Speicher: {minStorage >= 1000 ? `${(minStorage / 1024).toFixed(1)} TB` : `${Math.round(minStorage)} GB`}
           </Text>
         </View>
 
@@ -128,7 +128,7 @@ export const LaptopReport = ({ devices, selectedSoftware }: PDFProps) => {
               <Text style={styles.col1}>{device.manufacturer} {device.name}</Text>
               <Text style={styles.col2}>{Math.round(device.ram / 1024)} GB</Text>
               <Text style={styles.col3}>
-                {device.storage >= 1048576 ? `${(device.storage / 1024 / 1024).toFixed(0)} TB` : `${Math.round(device.storage / 1024)} GB`}
+                {minStorage >= 1000 ? `${(minStorage / 1024).toFixed(1)} TB` : `${Math.round(minStorage)} GB`}
               </Text>
               <Text style={styles.col4}>
                 {((device.price ?? 0) / 100).toLocaleString('de-DE', { style: 'currency', currency: 'EUR' })}

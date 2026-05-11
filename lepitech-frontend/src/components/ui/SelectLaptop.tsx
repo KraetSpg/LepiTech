@@ -67,8 +67,8 @@ export function SelectLaptop({ devices }: SelectLaptopProps) {
               <div className="flex justify-between">
                 <span>Speicher:</span>
                 <span className="font-medium text-foreground">
-                  {device.storage >= 1000000 ? `${(device.storage / 1024 / 1024).toFixed(0)} TB` : `${Math.round(device.storage / 1024)} GB`}
-                </span>
+                  {device.storage >= 1000 ? `${(device.storage / 1024).toFixed(0)} TB` : `${device.storage} GB`}
+                </span> 
               </div>
             </CardContent>
 
